@@ -17,12 +17,12 @@ A Windows system tray application for managing proxy settings from system tray.
 ## 🚀 Installation
 
 ### Download
-Download the latest installer from the [Releases](https://github.com/erfandavari/ProxyStatus/releases) page.
+Download the latest installer from the [Releases](https://github.com/erfnd/ProxyStatus/releases) page.
 
 ### Build from Source
 ```bash
 # Clone the repository
-git clone https://github.com/erfandavari/ProxyStatus.git
+git clone https://github.com/erfnd/ProxyStatus.git
 cd ProxyStatus
 
 # Install dependencies
