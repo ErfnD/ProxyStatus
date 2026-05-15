@@ -36,17 +36,17 @@ npm run build
 ```
 
 ## Prerequisites:
-Node.js 18+
-npm
-Windows 10 or 11
+ Node.js 18+
+ npm
+ Windows 10 or 11
 
-📝 License
-MIT © Erfan Davari
+## 📝 License
+ MIT © Erfan Davari
 
-🤝 Contributing
-Contributions, issues, and feature requests are welcome!
-Feel free to check the issues page.
+## 🤝 Contributing
+ Contributions, issues, and feature requests are welcome!
+ Feel free to check the issues page.
 
-⭐ Show Your Support
-Give a ⭐️ if this project helped you!
+## ⭐ Show Your Support
+ Give a ⭐️ if this project helped you!
 
