@@ -11,9 +11,6 @@ A Windows system tray application for managing proxy settings from system tray.
 - 🎯 **System Tray Integration** – Green/red icon shows proxy status at a glance
 - 🔄 **One-Click Toggle** – Turn proxy on/off from tray menu
 - 📋 **Profile Management** – Save, edit, activate, and delete multiple proxy configurations
-- 🌓 **Auto Dark Mode** – Follows Windows theme automatically
-- 🪟 **Windows 11 Design** – Glassmorphism, animations, and native scrollbars
-- 🔔 **Toast Notifications** – Non-intrusive alerts instead of popup dialogs
 - 🚀 **Startup with Windows** – Optional auto-start toggle in tray menu
 - 🔄 **Live Sync** – Detects proxy changes from other apps in real-time
 
@@ -43,55 +40,6 @@ Prerequisites:
 Node.js 18+
 npm
 Windows 10 or 11
-
-🛠️ Tech Stack
-Electron – Desktop framework
-
-electron-builder – Packaging & distribution
-
-electron-store – Persistent storage
-
-Windows Registry API – Proxy management
-
-CSS Glassmorphism – Windows 11 design
-
-📁 Project Structure
-text
-ProxyStatus/
-├── assets/              # Icons and images
-│   ├── proxy-on.png
-│   ├── proxy-off.png
-│   ├── icon-view.png
-│   ├── icon-activate.png
-│   ├── icon-active.png
-│   └── icon-delete.png
-├── build/               # Installer resources
-│   ├── icon.ico
-│   ├── installer-header.bmp
-│   └── installer-sidebar.bmp
-├── main.js              # Electron main process
-├── preload.js           # Preload script
-├── renderer.js          # UI logic
-├── index.html           # Main window
-├── styles.css           # Styling
-├── profiles.html        # Profiles page (if separate)
-├── profiles-renderer.js # Profiles logic
-├── LICENSE              # MIT License
-├── README.md
-└── package.json
-
-🔧 Usage
-Launch – App starts silently in system tray
-
-Click tray icon – Opens settings window
-
-Configure – Enter proxy server, port, and exceptions
-
-Toggle – Use switch to turn proxy on/off
-
-Profiles – Save configurations for quick switching
-
-Right-click tray – Access proxy toggle and startup settings
 
 📝 License
 MIT © Erfan Davari
