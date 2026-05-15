@@ -35,8 +35,7 @@ npm start
 npm run build
 ```
 
-Prerequisites:
-
+## Prerequisites:
 Node.js 18+
 npm
 Windows 10 or 11
