@@ -19,6 +19,21 @@ A Windows system tray application for managing proxy settings from system tray.
 ### Download
 Download the latest installer from the [Releases](https://github.com/erfandavari/ProxyStatus/releases) page.
 
+### Prerequisites:
+Node.js 18+
+npm
+Windows 10 or 11
+
+### 📝 License
+MIT © Erfan Davari
+
+### 🤝 Contributing
+Contributions, issues, and feature requests are welcome!
+Feel free to check the issues page.
+
+### ⭐ Show Your Support
+Give a ⭐️ if this project helped you!
+
 ### Build from Source
 ```bash
 # Clone the repository
@@ -35,18 +50,5 @@ npm start
 npm run build
 ```
 
-## Prerequisites:
- Node.js 18+
- npm
- Windows 10 or 11
 
-## 📝 License
- MIT © Erfan Davari
-
-## 🤝 Contributing
- Contributions, issues, and feature requests are welcome!
- Feel free to check the issues page.
-
-## ⭐ Show Your Support
- Give a ⭐️ if this project helped you!
 
