@@ -1,0 +1,703 @@
+/* ========== Windows 11 Glassmorphism & Animations ========== */
+:root {
+  /* Light theme – glass */
+  --glass-bg: rgba(255,255,255,0.6);
+  --glass-border: rgba(255,255,255,0.3);
+  --glass-shadow: 0 8px 32px rgba(0,0,0,0.1);
+  --accent: #0078D4;
+  --accent-hover: #106EBE;
+  --accent-pressed: #005A9E;
+  --text-primary: #1A1A1A;
+  --text-secondary: #5C5C5C;
+  --surface: rgba(255,255,255,0.7);
+  --background: #F0F2F5;   /* softer light background */
+  --border: rgba(0,0,0,0.1);
+  --border-focus: #0078D4;
+  --radius: 8px;
+  --input-disabled-bg: rgba(0,0,0,0.05);
+  --input-disabled-color: #A0A0A0;
+  --btn-bg: rgba(255,255,255,0.5);
+  --btn-text: #1A1A1A;
+  --btn-border: rgba(0,0,0,0.1);
+  --btn-hover-bg: rgba(0,0,0,0.05);
+  --btn-active-bg: rgba(0,0,0,0.1);
+  --btn-disabled-bg: rgba(0,0,0,0.05);
+  --btn-disabled-text: #A0A0A0;
+  --toast-bg: rgb(200, 200, 200);
+  --toast-color: #1A1A1A;
+  --toast-success: #107C10;
+  --toast-error: #C42B1C;
+  --toast-info: #0078D4;
+}
+
+body.dark {
+  --glass-bg: rgba(30,30,30,0.7);
+  --glass-border: rgba(255,255,255,0.1);
+  --glass-shadow: 0 8px 32px rgba(0,0,0,0.4);
+  --text-primary: #FFFFFF;
+  --text-secondary: #A0A0A0;
+  --surface: rgba(45,45,45,0.8);
+  --background: #1E1E1E;
+  --border: rgba(255,255,255,0.1);
+  --input-disabled-bg: rgba(255,255,255,0.05);
+  --input-disabled-color: #707070;
+  --btn-bg: rgba(45,45,45,0.6);
+  --btn-text: #FFFFFF;
+  --btn-border: rgba(255,255,255,0.1);
+  --btn-hover-bg: rgba(255,255,255,0.1);
+  --btn-active-bg: rgba(255,255,255,0.15);
+  --btn-disabled-bg: rgba(255,255,255,0.05);
+  --btn-disabled-text: #707070;
+  --toast-bg: rgb(50, 50, 50);
+  --toast-color: #FFFFFF;
+}
+
+body.dark .slider {
+  background-color: #505050;
+}
+
+/* ---------- Reset & Base ---------- */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+input, textarea {
+  user-select: text;
+  -webkit-user-select: text;
+}
+
+body {
+  font-family: "Segoe UI", "Segoe UI Variable", "Segoe UI Text", sans-serif;
+  font-size: 14px;
+  background-color: var(--background);
+  color: var(--text-primary);
+  padding: 40px 24px 24px 24px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  overflow: hidden;
+  /* Glassmorphic background for whole window */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* ---------- Page container ---------- */
+.page-container {
+  position: relative;
+  height: 100%;
+}
+
+/* ---------- Page Transitions (Windows 11 style) ---------- */
+.page {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s cubic-bezier(0.33, 0.0, 0.67, 1.0),
+              transform 0.25s cubic-bezier(0.33, 0.0, 0.67, 1.0);
+}
+
+/* Main page default position (centered) */
+#mainPage {
+  transform: translateX(0);
+}
+
+/* Profiles page starts slightly to the right */
+#profilesPage {
+  transform: translateX(30px);
+}
+
+/* Active states */
+.page.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+#mainPage.active {
+  transform: translateX(0);
+}
+
+#profilesPage.active {
+  transform: translateX(0);
+}
+
+/* When main page becomes inactive (going to profiles), slide it left */
+#mainPage:not(.active) {
+  transform: translateX(-20px);
+}
+
+/* When profiles page becomes inactive (going back to main), slide it right */
+#profilesPage:not(.active) {
+  transform: translateX(30px);
+}
+
+/* ---------- Typography ---------- */
+.window-title {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 20px;
+  color: var(--text-primary);
+  transition: color 0.3s ease;
+}
+
+/* ---------- Sections ---------- */
+.section { margin-bottom: 20px; }
+
+label {
+  display: block;
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--text-secondary);
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: color 0.3s ease;
+}
+
+.input-group { display: flex; gap: 8px; }
+
+/* ---------- Inputs (Glass) ---------- */
+input[type="text"],
+input[type="number"],
+textarea {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font-family: inherit;
+  font-size: 14px;
+  background: var(--surface);
+  color: var(--text-primary);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.3s ease;
+  outline: none;
+}
+
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input:focus,
+textarea:focus {
+  border-color: var(--border-focus);
+  box-shadow: 0 0 0 2px rgba(0,120,212,0.2);
+}
+
+input:disabled,
+textarea:disabled {
+  background-color: var(--input-disabled-bg);
+  color: var(--input-disabled-color);
+  cursor: not-allowed;
+}
+
+textarea {
+  resize: none;
+  min-height: 80px;
+}
+
+/* ---------- Buttons (Glass) ---------- */
+.btn {
+  padding: 6px 14px;
+  border: 1px solid var(--btn-border);
+  border-radius: var(--radius);
+  font-family: inherit;
+  font-size: 14px;
+  cursor: pointer;
+  background: var(--btn-bg);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  color: var(--btn-text);
+  transition: all 0.2s ease;
+  outline: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  transform: scale(1);
+  width: 100%;
+}
+
+.btn:hover {
+  background-color: var(--btn-hover-bg);
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.btn:active {
+  background-color: var(--btn-active-bg);
+  transform: translateY(0);
+}
+
+.btn:focus-visible {
+  box-shadow: 0 0 0 2px rgba(0,120,212,0.4);
+}
+
+.btn.primary {
+  background-color: var(--accent);
+  color: white;
+  border-color: var(--accent);
+}
+.btn.primary:hover {
+  background-color: var(--accent-hover);
+  border-color: var(--accent-hover);
+}
+.btn.primary:active {
+  background-color: var(--accent-pressed);
+  border-color: var(--accent-pressed);
+}
+
+.btn.small {
+  padding: 4px 10px;
+  font-size: 13px;
+}
+
+.btn:disabled {
+  opacity: 0.6;
+  cursor: default;
+  background-color: var(--btn-disabled-bg);
+  color: var(--btn-disabled-text);
+  border-color: var(--border);
+  transform: none;
+  box-shadow: none;
+}
+
+/* ---------- Toggle Switch ---------- */
+.toggle-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 16px 0;
+  position: absolute;
+  top: -10px;
+  right: 0;
+}
+
+.toggle-switch {
+  position: relative;
+  display: inline-block;
+  width: 44px;
+  height: 24px;
+}
+
+.toggle-switch input { opacity: 0; width: 0; height: 0; }
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: #CCCCCC;
+  border-radius: 24px;
+  transition: background-color 0.2s ease;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 18px;
+  width: 18px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  border-radius: 50%;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 1px 2px rgba(0,0,0,0.2);
+}
+
+input:checked + .slider { background-color: var(--accent); }
+input:checked + .slider:before { transform: translateX(20px); }
+input:disabled + .slider { opacity: 0.4; cursor: not-allowed; }
+
+.toggle-label {
+  font-size: 14px;
+  color: var(--text-primary);
+  transition: color 0.3s ease;
+}
+
+/* ---------- Separator ---------- */
+hr {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 10px 0;
+  transition: border-color 0.3s ease;
+}
+
+/* ---------- Profiles Page Specific ---------- */
+.profiles-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.title-bar-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.back-btn {
+  -webkit-app-region: no-drag;
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 16px;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: background 0.2s, color 0.2s, transform 0.1s;
+}
+
+.back-btn:hover {
+  background: var(--btn-hover-bg);
+  color: var(--text-primary);
+  transform: translateX(-2px);
+}
+
+/* ---------- Windows 11 Scrollbar ---------- */
+.profiles-scroll {
+  max-height: 315px;
+  overflow-y: auto;
+  padding-right: 4px;
+  
+  /* Firefox */
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+}
+
+/* Webkit (Chrome/Edge) scrollbar - hidden by default */
+.profiles-scroll::-webkit-scrollbar {
+  width: 6px;
+}
+
+.profiles-scroll::-webkit-scrollbar-track {
+  background: transparent;
+  margin: 4px 0;
+}
+
+.profiles-scroll::-webkit-scrollbar-thumb {
+  background: transparent;
+  border-radius: 3px;
+  transition: background 0.3s ease;
+}
+
+/* Show scrollbar on hover (Windows 11 behavior) */
+.profiles-scroll:hover::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.25);
+}
+
+.profiles-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(0, 0, 0, 0.4);
+}
+
+/* Dark mode scrollbar */
+body.dark .profiles-scroll:hover::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+body.dark .profiles-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.45);
+}
+
+/* Firefox hover effect (Firefox doesn't support hover-based visibility, so always thin) */
+.profiles-scroll:hover {
+  scrollbar-color: rgba(0, 0, 0, 0.25) transparent;
+}
+
+body.dark .profiles-scroll:hover {
+  scrollbar-color: rgba(255, 255, 255, 0.3) transparent;
+}
+
+.profile-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Profile item glass card */
+.profile-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px;
+  background: var(--surface);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  margin-bottom: 8px;
+  gap: 8px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.profile-info {
+  flex: 1;
+  font-size: 13px;
+  color: var(--text-primary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  transition: color 0.3s ease;
+}
+
+.profile-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+/* Icon buttons */
+.icon-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  padding: 4px;
+  border-radius: var(--radius);
+  color: var(--text-secondary);
+  transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.icon-btn:hover {
+  background-color: var(--btn-hover-bg);
+  color: var(--text-primary);
+  transform: scale(1.1);
+}
+
+.icon-btn.view:hover { color: var(--accent); }
+.icon-btn.danger:hover { color: #C42B1C; }
+
+/* ---------- Toast Notifications ---------- */
+.toast-container {
+    position: fixed;
+    top: 350px;
+    right: 8px;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.toast {
+  background: var(--toast-bg);
+  color: var(--toast-color);
+  padding: 8px;
+  border-radius: 8px;
+  box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 250px;
+  max-width: 350px;
+  font-size: 13px;
+  transform: translateX(120%);
+  opacity: 0;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+  pointer-events: auto;
+}
+
+.toast.show {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.toast.success { border-color: var(--toast-success); }
+.toast.error { border-color: var(--toast-error); }
+.toast.info { border-color: var(--toast-info); }
+
+.toast-icon {
+  font-size: 18px;
+  flex-shrink: 0;
+}
+.toast-message {
+  flex: 1;
+}
+.toast-close {
+  background: none;
+  border: none;
+  color: inherit;
+  font-size: 16px;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+}
+.toast-close:hover { opacity: 1; }
+
+/* Custom title bar for frameless window */
+.title-bar {
+  -webkit-app-region: drag;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 32px;
+  position: absolute;
+  top: 5px;
+  left: 6px;
+  width: 389px;
+}
+
+.title-bar-close {
+  -webkit-app-region: no-drag;  /* button must be clickable, not drag */
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 16px;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: background 0.2s, color 0.2s;
+}
+
+.title-bar-close:hover {
+  background: #C42B1C;
+  color: white;
+}
+
+.title-bar-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.title-bar-back {
+  -webkit-app-region: no-drag;
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 16px;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: background 0.2s, color 0.2s, transform 0.1s;
+}
+.title-bar-back:hover {
+  background: var(--btn-hover-bg);
+  color: var(--text-primary);
+  transform: translateX(-2px);
+}
+
+.icon-img {
+  width: 18px;
+  height: 18px;
+  object-fit: contain;
+  display: block;
+  transition: opacity 0.2s ease;
+}
+
+.icon-btn:hover .icon-img {
+  opacity: 0.8;
+}
+
+/* ---------- Confirmation Modal ---------- */
+.modal-overlay {
+  position: fixed;
+  top: 170px;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+  animation: fadeIn 0.2s ease;
+  background: none;
+}
+
+.modal-box {
+  background: rgb(45 45 45);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+  width: 320px;
+  /* max-width: 350px; */
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.3);
+  animation: slideUp 0.25s ease;
+}
+
+.modal-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin-bottom: 12px;
+}
+
+.modal-message {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin-bottom: 24px;
+  line-height: 1.5;
+}
+
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.modal-actions .btn.danger {
+  background-color: #C42B1C;
+  color: white;
+  border-color: #C42B1C;
+}
+
+.modal-actions .btn.danger:hover {
+  background-color: #B5251A;
+  border-color: #B5251A;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUp {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+/* ---------- Empty State ---------- */
+.empty-state {
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  text-align: center;
+  gap: 8px;
+  animation: fadeIn 0.3s ease;
+  position: absolute;
+  top: 110px;
+  left: 20px;
+}
+
+.empty-icon {
+  font-size: 48px;
+  opacity: 0.5;
+  margin-bottom: 8px;
+}
+
+.empty-text {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--text-primary);
+  opacity: 0.8;
+}
+
+.empty-subtext {
+  font-size: 13px;
+  color: var(--text-secondary);
+  opacity: 0.7;
+}
