@@ -35,17 +35,12 @@ npm start
 npm run build
 ```
 
-### Prerequisites:
-- Node.js 18+
-- npm
-- Windows 10 or 11
-
-### 📝 License
+## 📝 License
 - MIT © Erfan Davari
 
-### 🤝 Contributing
+## 🤝 Contributing
 - Contributions, issues, and feature requests are welcome!
 - Feel free to check the issues page.
 
-### ⭐ Show Your Support
+## ⭐ Show Your Support
 Give a ⭐️ if this project helped you!
